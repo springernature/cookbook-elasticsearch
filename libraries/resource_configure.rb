@@ -83,6 +83,7 @@ class ElasticsearchCookbook::ConfigureResource < Chef::Resource::LWRPBase
     'cluster.name' => 'elasticsearch',
     # can't access node.name, so expect to have to set set this
     'node.name' => Chef::Config[:node_name],
+    'network.host' => Chef::Config['ipaddress'],
 
     # if omitted or nil, these will be populated from attributes above
     'path.conf' => nil, # see path_conf above

@@ -1,19 +1,7 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# THIS FILE IS MANAGED BY CHEF, DO NOT EDIT MANUALLY, YOUR CHANGES WILL BE OVERWRITTEN!
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# See the source file for context and more information:
-# <https://github.com/elastic/cookbook-elasticsearch/blob/master/templates/default/logging.yml.erb>
-#
-# You may also supply your own template to the elasticsearch cookbook's
-# elasticsearch_configure resource using the template_logging_yml and cookbook_logging_yml
-# parameters defined here:
-# <https://github.com/elastic/cookbook-elasticsearch/blob/master/libraries/resource_configure.rb#L48-L49>
-#
-
-# you can override this using by setting a system property, for example -Des.logger.level=DEBUG
-es.logger.level: INFO
-rootLogger: ${es.logger.level}, console, file
+# you can override using a command-line parameter
+# -E logger.level=(ERROR|WARN|INFO|DEBUG|TRACE)
+logger.level: INFO
+rootLogger: ${logger.level}, console, file
 logger:
   # log action execution errors for easier debugging
   action: DEBUG
@@ -41,12 +29,6 @@ logger:
 
   index.search.slowlog: TRACE, index_search_slow_log_file
   index.indexing.slowlog: TRACE, index_indexing_slow_log_file
-
-# ----- Configuration set by Chef ---------------------------------------------
-<% @logging.sort.each do |key, value| %>
-logger.<%= key %>: <%= value %>
-<% end %>
-# -----------------------------------------------------------------------------
 
 additivity:
   index.search.slowlog: false
